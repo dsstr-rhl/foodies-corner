@@ -68,7 +68,7 @@ router.post("/register", upload.single('image'), (req, res) => {
   });
  }
 	else{
-		cloudinary.uploader.upload(req.file.path, (result) => {
+	cloudinary.uploader.upload(req.file.path, (result) => {
   let newUser = new User({
     username: req.body.username,
     firstName: req.body.firstName,
