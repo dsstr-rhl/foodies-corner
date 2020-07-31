@@ -71,7 +71,7 @@ app.use("/users", userRoute);
 app.use("/", passwordRoute);
 
 
-app.listen(300, function(){
+app.listen(process.env.PORT,process.env.IP, function(){
    console.log("server has started");
 	console.log(process.env.PASSWORD);
 	console.log(process.env.ADMIN_CODE);
