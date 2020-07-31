@@ -1,0 +1,121 @@
+<%-include("../partials/header")%>
+<div class="row">
+  <div class="col-md-3">
+    <p class="lead">Foodies-Corner</p>
+	<div class="list-group" id="list-tab" role="tablist">
+      	<a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="/corners/<%= 			corner._id %>" role="tab" aria-controls="home"><%= corner.name %>
+		</a>
+      	<a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="/corners/<%= 				corner._id %>/menu" role="tab" aria-controls="profile"><span class="glyphicon glyphicon-cutlery" aria-hidden="true">		</span> MENU
+		</a>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div class="thumbnail">
+      <img class="img-responsive" src="<%= corner.image.url %>">
+      <div class="caption">
+        <a class="btn btn-primary btn-sm pull-right" href="/corners/<%= corner._id %>/menu">
+			<span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> MENU
+		</a>
+        <a href="/corners/<%= corner._id %>"><h4><%= corner.name %></h4></a>
+        <p><%= corner.description %></p>
+        <p>
+          <em>Submitted By <a href="/users/<%= corner.author.id %>"><%= corner.author.username %></a>, <%= moment(corner.createdAt).fromNow() %></em>
+        </p>
+        <% if (currentUser && corner.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) {%>
+          <a class="btn btn-warning btn-sm" href="/corners/<%= corner._id %>/edit">Edit</a>
+          <form class="delete-form" action="/corners/<%= corner._id %>?_method=DELETE" method="POST">
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        <% } %>
+      </div>
+    </div>
+    <div class="well">
+      <div class="text-right">
+        <a class="btn btn-success btn-sm pull-right" role="button" data-toggle="collapse" href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new comment
+        </a>
+      </div>
+      <!--Comment section title-->
+      <h4><span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span> <strong>Comments</strong></h4>
+      <!--Collapse Add a comment form START-->
+      <div class="collapse" id="collapseComment">
+        <div class="well" style="border-left: 3px solid #00A546;">
+          <% if (!currentUser) { %>
+            <h5>You need to be logged in first. Click <a href="/login">here</a> to go to the login page.</h5>
+          <% } %>
+          <% if (currentUser) { %>
+            <h4>Share something about this f-corner <span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span></h4>
+            <form id="add-comment-form" action="/corners/<%= corner._id %>/comments" method="POST">
+              <div class="form-group">
+                <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="comment[text]" placeholder="What are you thinking about?" form="add-comment-form" rows="5" cols="70" autocomplete="off"></textarea>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-success btn-sm">Send</button>
+              </div>
+            </form>
+          <% } %>
+        </div>
+      </div>
+      <!--Collapse Add a comment form END-->
+      <hr>
+      <!--Check if there are comments-->
+      <% if (corner.comments.length === 0) { %>
+        <em style="color: grey;">No comments yet. Share something about this F-Corner!</em>
+      <% } %>
+      <% corner.comments.forEach(comment => { %>
+        <div class="row">
+          <div class="col-md-12">
+            <strong>
+                <a href="/users/<%= comment.author.id %>"><%= comment.author.username %></a>
+            </strong>
+            <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+            <p>
+              <%= comment.text %>
+            </p>
+            <% if (currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin) {%>
+              <a
+                class="btn btn-warning btn-xs"
+                role="button"
+                data-toggle="collapse"
+                href="#collapseEdit<%= comment._id %>"
+                aria-expanded="false"
+                aria-controls="collapse<%= comment._id %>"
+              >Edit</a>
+              <form
+                id="delete-form"
+                action="/corners/<%= corner._id %>/comments/<%= comment._id %>?_method=DELETE"
+                method="POST"
+                style="display: inline;"
+              >
+                <button class="btn btn-danger btn-xs">Delete</button>
+              </form>
+              <!--Edit comment form-->
+              <!--make each id attribute unique by adding comment._id-->
+              <div class="collapse" id="collapseEdit<%= comment._id %>">
+                <div class="well" style="border-left: 3px solid #ffbb33; margin-top: 15px;">
+                  <h4>Edit your comment <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></h4>
+                  <form id="edit-comment-form" action="/corners/<%= corner._id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+                    <div class="form-group">
+                      <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
+                    </div>
+                    <div class="form-group">
+                      <textarea class="form-control" name="comment[text]" placeholder="What are you think about?" form="edit-comment-form" rows="5" cols="70" autocomplete="off"><%= comment.text %></textarea>
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-warning btn-xs">Save</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            <% } %>
+            <hr>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</div>
+<%-include("../partials/footer")%>

@@ -1,0 +1,41 @@
+<%-include("../partials/header")%>
+
+     <header class="jumbotron">
+         <div class="container">
+             <h1><span class="glyphicon glyphicon-cutlery"></span> Welcome To Foodies-Corner!</h1>
+             <p>Craving!! Choose from finest food corners.</p>
+              <p>
+              <form action="/corners" method="GET" class="form-inline" id="corner-search">
+                <div class="form-group has-feedback">
+				  <label for="search"></label>
+                  <input type="text" name="search" placeholder="Search F-Corners.." class="form-control" autocomplete="off" >
+				  <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                </div>
+              </form>
+             </p>
+		     <hr id="home-hr">
+		     <p>
+                <a class="btn btn-primary btn-sm pull-right" href="/corners/new">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Share New F-Corner
+				</a>
+             </p>
+         </div>
+     </header>
+     
+     <div class="row text-center flex-wrap" id="corner-grid">
+        <% corners.forEach(function(corner){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail card" id="home-thumbnail">
+                   <img src="<%= corner.image.url %>">
+                   <div class="caption">
+                       <h4><%= corner.name %></h4>
+                   </div>
+                   <p>
+                       <a href="/corners/<%= corner._id %>" class="btn btn-primary">More Info</a>
+                   </p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+<%-include("../partials/footer")%>

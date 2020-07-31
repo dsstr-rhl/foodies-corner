@@ -1,0 +1,27 @@
+<%-include("../partials/header")%>
+<div class="row">
+  <div class="col-md-3">
+    <p class="lead">Foodies-Corner</p>
+	<div class="list-group" id="list-tab" role="tablist">
+      	<a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="/corners/<%= 				corner._id %>" role="tab" aria-controls="home"><%= corner.name %>
+		</a>
+		<a class="list-group-item list-group-item-action active" id="list-profile-list" data-toggle="list" href="/corners/<%=
+		corner._id %>/menu" role="tab" aria-controls="profile"><span class="glyphicon glyphicon-cutlery" aria-hidden="true">		</span> MENU
+		</a>
+      	<a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" 				role="tab" aria-controls="messages">Messages
+		</a>
+    </div>
+    <div id="map"></div>
+  </div>
+  <div class="col-md-9">
+    <div class="thumbnail">
+      <img class="img-responsive" src="<%= corner.menu[0] %>">
+      <div class="caption">
+        <a href="/corners/<%= corner._id %>"><h4><%= corner.name %></h4></a>
+        <p><%= corner.description %></p>
+        <p>
+          <em>Submitted By <a href="/users/<%= corner.author.id %>"><%= corner.author.username %></a>, <%= moment(corner.createdAt).fromNow() %></em>
+        </p>
+      </div>
+    </div>
+<%-include("../partials/footer")%>
