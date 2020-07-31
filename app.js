@@ -26,7 +26,7 @@ var commentRoutes    = require("./routes/comments"),
 // assign mongoose promise library and connect to database
 mongoose.Promise = global.Promise;
 
-const databaseUri = process.env.MONGODB_URI || 'mongodb://localhost/foodies-corner';
+const databaseUri = "mongodb://dsstrrhl:dsstrrhl@foodies-corner-shard-00-00.xlrf9.mongodb.net:27017,foodies-corner-shard-00-01.xlrf9.mongodb.net:27017,foodies-corner-shard-00-02.xlrf9.mongodb.net:27017/foodies-corner?ssl=true&replicaSet=atlas-113a5q-shard-0&authSource=admin&retryWrites=true&w=majority";
 
 mongoose.connect(databaseUri, { useMongoClient: true })
       .then(() => console.log(`Database connected`))
@@ -71,7 +71,7 @@ app.use("/users", userRoute);
 app.use("/", passwordRoute);
 
 
-app.listen(3000, function(){
+app.listen(300, function(){
    console.log("server has started");
 	console.log(process.env.PASSWORD);
 	console.log(process.env.ADMIN_CODE);
