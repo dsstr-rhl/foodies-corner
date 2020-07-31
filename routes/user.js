@@ -110,8 +110,8 @@ else {
       },
     email: req.body.email
   };
-		if(imageId) {
-	cloudinary.uploader.destroy(imageId, (result) => { console.log(result) });}
+		if(avatarId) {
+	cloudinary.uploader.destroy(avatarId, (result) => { console.log(result) });}
 	 User.findByIdAndUpdate(req.params.id, {$set: newUser}, (err, updatedUser) => {
     if (err) {
       if (err.name === 'MongoError' && err.code === 11000) {

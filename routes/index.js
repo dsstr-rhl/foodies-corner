@@ -38,7 +38,7 @@ router.get("/register", function(req, res){
 
 //handle sign up logic
 router.post("/register", upload.single('image'), (req, res) => {
- if(!req.fie) {
+ if(!req.file) {
   let newUser = new User({
     username: req.body.username,
     firstName: req.body.firstName,
@@ -74,14 +74,13 @@ router.post("/register", upload.single('image'), (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
 	avatar : {
-        // add cloudinary public_id for the image to the campground object under image property
+        // add cloudinary public_id for the image to the object under image property
         id: result.public_id,
-        // add cloudinary url for the image to the campground object under image property
+        // add cloudinary url for the image to the object under image property
         url: result.secure_url
       },
     email: req.body.email
   });
-  
   if (req.body.adminCode === process.env.ADMIN_CODE) {
     newUser.isAdmin = true;
   }

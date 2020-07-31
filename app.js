@@ -46,7 +46,7 @@ app.locals.moment = require('moment');
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
-    secret: "Once again Rusty wins cutest dog!",
+    secret: "jar 3300",
     resave: false,
     saveUninitialized: false
 }));
@@ -73,9 +73,6 @@ app.use("/users", userRoute);
 app.use("/", passwordRoute);
 
 
-app.listen(process.env.PORT,process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
    console.log("server has started");
-	console.log(process.env.PASSWORD);
-	console.log(process.env.ADMIN_CODE);
-	console.log(process.env.APISECRET);
 });
