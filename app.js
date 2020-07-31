@@ -28,7 +28,9 @@ mongoose.Promise = global.Promise;
 
 const databaseUri = "mongodb://dsstrrhl:dsstrrhl@foodies-corner-shard-00-00.xlrf9.mongodb.net:27017,foodies-corner-shard-00-01.xlrf9.mongodb.net:27017,foodies-corner-shard-00-02.xlrf9.mongodb.net:27017/foodies-corner?ssl=true&replicaSet=atlas-113a5q-shard-0&authSource=admin&retryWrites=true&w=majority";
 
-mongoose.connect(databaseUri, { useMongoClient: true })
+mongoose.connect(databaseUri, { useMongoClient: true,
+							   useNewUrlParser: true,
+							  useUnifiedTopology: true})
       .then(() => console.log(`Database connected`))
       .catch(err => console.log(`Database connection error: ${err.message}`));
 

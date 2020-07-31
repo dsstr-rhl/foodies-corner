@@ -30,7 +30,7 @@
                     <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/login">Login</a></li>
                     <li class="<%= typeof page !== 'undefined' && page === 'register' ? 'active' : '' %>"><a href="/register">Sign Up</a></li>
                 <% } else { %>
-                    <li><a href="https://foodies-corner.run-ap-south1.goorm.io/users/<%= currentUser._id %>">Hi,<strong><%= currentUser.username %></strong></a></li>
+                    <li><a href="https://foodies-corner.herokuapp.com/users/<%= currentUser._id %>">Hi,<strong><%= currentUser.username %></strong></a></li>
                     <li><a href="/logout">Logout</a></li>
                 <% } %>
             </ul>
